@@ -1,4 +1,6 @@
 import sql from "better-sqlite3";
+import slugify from "slugify";
+import xss from "xss";
 
 const db = sql("meals.db");
 
@@ -10,4 +12,11 @@ export async function getMeals() {
 
 export function getMeal(slug) {
   return db.prepare("SELECT * FROM meals WHERE slug = ?").get(slug);
+}
+
+export function saveMeal(meal) {
+  // Convert the title into a URL-friendly string (e.g., "Hello World" -> "hello-world")
+  meal.slug = slugify(meal.title, { lower: true });
+  // Sanitize the HTML instructions to prevent Cross-Site Scripting (XSS) attacks
+  meal.instructions = xss(meal.instructions);
 }
