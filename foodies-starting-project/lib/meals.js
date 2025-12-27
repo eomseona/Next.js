@@ -5,7 +5,7 @@ import slugify from "slugify";
 import xss from "xss";
 import { S3 } from "@aws-sdk/client-s3";
 
-const s3 = new S3({ region: "us-east-1" });
+const s3 = new S3({ region: "us-east-2" });
 const db = sql("meals.db");
 
 export async function getMeals() {
@@ -29,14 +29,14 @@ export async function saveMeal(meal) {
 
   const bufferedImage = await meal.image.arrayBuffer();
 
-  s3.putObject({
+  await s3.putObject({
     Bucket: "seona-nextjs-demo-users-image",
     Key: fileName,
     Body: Buffer.from(bufferedImage),
     ContentType: meal.image.type,
   });
 
-  meal.image = `/images/${fileName}`;
+  meal.image = fileName;
 
   db.prepare(
     `
