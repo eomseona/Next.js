@@ -6,7 +6,7 @@ export default function FormSubmit() {
   const status = useFormStatus();
 
   if (status.pending) {
-    return <p>Creating post...</p>;
+    return <span>Creating post...</span>;
   }
 
   return (
