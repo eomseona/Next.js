@@ -11,7 +11,7 @@ export default function Header() {
           src={logo}
           width={100}
           height={100}
-          sizes="10vw"
+          priority // make image preload
           alt="Mobile phone with posts feed on it"
         />
       </Link>
