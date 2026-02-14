@@ -2,10 +2,10 @@
 import Link from "next/link";
 import { useActionState } from "react";
 
-import { signup } from "@/actions/auth-actions";
+import { auth } from "@/actions/auth-actions";
 
 export default function AuthForm({ mode }) {
-  const [formState, formAction] = useActionState(signup, {});
+  const [formState, formAction] = useActionState(auth.bind(null, mode), {});
   return (
     <form id="auth-form" action={formAction}>
       <div>
